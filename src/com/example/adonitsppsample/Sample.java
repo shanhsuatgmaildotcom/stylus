@@ -6,6 +6,10 @@ import android.os.Message;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
 import com.adonit.AdonitSPPLibrary;;
 
 public class Sample extends Activity {
@@ -15,10 +19,26 @@ public class Sample extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
+        Button button = (Button)findViewById(R.id.button1);
+        button.setOnClickListener(button1OnClickListener);
+        button = (Button)findViewById(R.id.button2);
+        button.setOnClickListener(button2OnClickListener);
         
         mLibrary = new AdonitSPPLibrary(this, mMyHandler);
         mLibrary.start();
     }
+    
+    private OnClickListener button1OnClickListener = new OnClickListener() { 
+        public void onClick(View v) {
+        	mLibrary.start();
+        }
+    };
+    
+    private OnClickListener button2OnClickListener = new OnClickListener() { 
+        public void onClick(View v) {
+        	mLibrary.stop();
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
