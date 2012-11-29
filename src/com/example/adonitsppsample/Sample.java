@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.adonit.AdonitSPPLibrary;;
+import com.adonit.AdonitSPPLibrary;
 
 public class Sample extends Activity {
 	DrawView drawView;
