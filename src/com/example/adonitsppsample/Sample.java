@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import com.adonit.AdonitSPPLibrary;;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
