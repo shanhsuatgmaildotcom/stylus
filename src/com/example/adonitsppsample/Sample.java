@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import com.adonit.AdonitSPPLibrary;;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import com.adonit.AdonitSPPLibrary;
 
 public class Sample extends Activity {
-	
+	DrawView drawView;
 	AdonitSPPLibrary mLibrary;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,9 +26,18 @@ public class Sample extends Activity {
         button.setOnClickListener(button1OnClickListener);
         button = (Button)findViewById(R.id.button2);
         button.setOnClickListener(button2OnClickListener);
+        //setContentView(R.layout.activity_sample);
         
         mLibrary = new AdonitSPPLibrary(this, mMyHandler);
         mLibrary.start();
+        
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE | Window.FEATURE_ACTION_BAR);
+
+        drawView = new DrawView(this);
+        setContentView(drawView);
+        drawView.requestFocus();
     }
     
     private OnClickListener button1OnClickListener = new OnClickListener() { 
@@ -43,7 +55,24 @@ public class Sample extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_sample, menu);
+        menu.add(0, 0, 0, "Black");
+        menu.add(0, 1, 0, "Red");
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	super.onOptionsItemSelected(item);
+    	switch(item.getItemId()) {
+    		case 0:
+    			drawView.SetColor(0);
+    			break;
+    		case 1:
+    			drawView.SetColor(1);
+    			break;
+    	}
+    	return true;
     }
     
     Handler mMyHandler = new Handler()
