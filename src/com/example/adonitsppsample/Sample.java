@@ -20,7 +20,11 @@ public class Sample extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE | Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_sample);
+        
         Button button = (Button)findViewById(R.id.button1);
         button.setOnClickListener(button1OnClickListener);
         button = (Button)findViewById(R.id.button2);
@@ -29,10 +33,6 @@ public class Sample extends Activity {
         
         mLibrary = new AdonitSPPLibrary(this, mMyHandler);
         mLibrary.start();
-        
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE | Window.FEATURE_ACTION_BAR);
 
         drawView = new DrawView(this);
         setContentView(drawView);
