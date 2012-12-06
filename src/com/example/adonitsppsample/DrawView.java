@@ -10,14 +10,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.graphics.Path;
+import android.widget.TextView;
 
 public class DrawView extends View implements OnTouchListener {
 	private static final String TAG = "DrawView";
 
     List<MyPath> path = new ArrayList<MyPath>();
     Paint paint = new Paint();
-    Paint paintRed = new Paint();
+    //Paint paintRed = new Paint();
     int miColor = 0;
+    float mfPenWidth = 3;
     private MyPath myPath;
     
 	public DrawView(Context context) {
@@ -29,18 +31,12 @@ public class DrawView extends View implements OnTouchListener {
         this.setOnTouchListener(this);
 
         paint.setDither(true);
-        paint.setColor(0xFF000000);
+        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(3);
         paint.setDither(true);
-        
-        paintRed.setColor(0xFFFF0000);
-        paintRed.setStyle(Paint.Style.STROKE);
-        paintRed.setStrokeJoin(Paint.Join.ROUND);
-        paintRed.setStrokeCap(Paint.Cap.ROUND);
-        paintRed.setStrokeWidth(3);
 	}
 	
 	public void SetColor(int iColor)
@@ -50,22 +46,18 @@ public class DrawView extends View implements OnTouchListener {
 	
 	@Override
     public void onDraw(Canvas canvas) {
-        /*for (Point point : points) {
-        	if (point.color == 0) {
-        		canvas.drawCircle(point.x, point.y, 5, paint);
-        	} else {
-        		canvas.drawCircle(point.x, point.y, 5, paintRed);
-        	}
-            // Log.d(TAG, "Painting: "+point);
-        }*/
 		for (MyPath onePath : path) {
 			switch (onePath.color) 
 			{
 				case 0:
+					paint.setColor(Color.BLACK);
+					paint.setStrokeWidth(3);
 					canvas.drawPath(onePath, paint);
 					break;
 				case 1:
-					canvas.drawPath(onePath, paintRed);
+					paint.setColor(Color.RED);
+					paint.setStrokeWidth(7);
+					canvas.drawPath(onePath, paint);
 					break;
 			} 
 		}
@@ -73,14 +65,6 @@ public class DrawView extends View implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		// TODO Auto-generated method stub
-		/*Point point = new Point();
-        point.x = event.getX();
-        point.y = event.getY();
-        point.color = miColor;
-        points.add(point);
-        invalidate();
-        Log.d(TAG, "point: " + point);*/
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
         	myPath = new MyPath();
         	myPath.moveTo(event.getX(), event.getY());
@@ -97,10 +81,17 @@ public class DrawView extends View implements OnTouchListener {
         invalidate();
         return true;
 	}
+	
+	public void clear()
+	{
+		path.clear();
+		invalidate();
+	}
 }
 
 class MyPath extends Path
 {
     int color;
+    float fWidth;
 }
 

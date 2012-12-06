@@ -4,11 +4,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,6 +25,8 @@ import com.adonit.AdonitSPPLibrary;
 public class Sample extends Activity {
 	DrawView drawView;
 	AdonitSPPLibrary mLibrary;
+	TextView mColorView;
+	Button mClearButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,30 +34,26 @@ public class Sample extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE | Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_sample);
+
+        mClearButton = (Button)findViewById(R.id.buttonClear);
+        mClearButton.setOnClickListener(buttonClearOnClickListener);
         
-        Button button = (Button)findViewById(R.id.button1);
-        button.setOnClickListener(button1OnClickListener);
-        button = (Button)findViewById(R.id.button2);
-        button.setOnClickListener(button2OnClickListener);
-        //setContentView(R.layout.activity_sample);
+        mColorView = (TextView)findViewById(R.id.ColorView);
         
         mLibrary = new AdonitSPPLibrary(this, mMyHandler);
         mLibrary.start();
-
+        
         drawView = new DrawView(this);
-        setContentView(drawView);
-        drawView.requestFocus();
+        MarginLayoutParams ml = new MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        ml.setMargins(300, 0, 0, 0);
+		drawView.setLayoutParams(ml);
+		LinearLayout ll = (LinearLayout)findViewById(R.id.LayoutDraw);
+        ll.addView(drawView);
     }
     
-    private OnClickListener button1OnClickListener = new OnClickListener() { 
+    private OnClickListener buttonClearOnClickListener = new OnClickListener() { 
         public void onClick(View v) {
-        	mLibrary.start();
-        }
-    };
-    
-    private OnClickListener button2OnClickListener = new OnClickListener() { 
-        public void onClick(View v) {
-        	mLibrary.stop();
+        	drawView.clear();
         }
     };
 
@@ -66,9 +72,11 @@ public class Sample extends Activity {
     	switch(item.getItemId()) {
     		case 0:
     			drawView.SetColor(0);
+    			mColorView.setBackgroundColor(Color.BLACK);
     			break;
     		case 1:
     			drawView.SetColor(1);
+    			mColorView.setBackgroundColor(Color.RED);
     			break;
     	}
     	return true;
