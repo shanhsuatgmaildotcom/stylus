@@ -44,6 +44,12 @@ public class DrawView extends View implements OnTouchListener {
 		miColor = iColor;
 	}
 	
+	public void SetStrokeWidth(float fWidth)
+	{
+		mfPenWidth = (float)fWidth;
+		Log.d(TAG, "mfPenWidth:" + String.valueOf(mfPenWidth));
+	}
+	
 	@Override
     public void onDraw(Canvas canvas) {
 		for (MyPath onePath : path) {
@@ -51,12 +57,27 @@ public class DrawView extends View implements OnTouchListener {
 			{
 				case 0:
 					paint.setColor(Color.BLACK);
-					paint.setStrokeWidth(3);
+					paint.setStrokeWidth(onePath.fWidth);
 					canvas.drawPath(onePath, paint);
 					break;
 				case 1:
 					paint.setColor(Color.RED);
-					paint.setStrokeWidth(7);
+					paint.setStrokeWidth(onePath.fWidth);
+					canvas.drawPath(onePath, paint);
+					break;
+				case 2:
+					paint.setColor(Color.GREEN);
+					paint.setStrokeWidth(onePath.fWidth);
+					canvas.drawPath(onePath, paint);
+					break;
+				case 3:
+					paint.setColor(Color.YELLOW);
+					paint.setStrokeWidth(onePath.fWidth);
+					canvas.drawPath(onePath, paint);
+					break;
+				case 4:
+					paint.setColor(Color.BLUE);
+					paint.setStrokeWidth(onePath.fWidth);
 					canvas.drawPath(onePath, paint);
 					break;
 			} 
@@ -68,15 +89,18 @@ public class DrawView extends View implements OnTouchListener {
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
         	myPath = new MyPath();
         	myPath.moveTo(event.getX(), event.getY());
+        	myPath.fWidth = mfPenWidth;
         } else if(event.getAction() == MotionEvent.ACTION_MOVE) {
         	myPath.lineTo(event.getX(), event.getY());
         	path.add(myPath);
         	myPath.color = miColor;
             myPath = new MyPath();
             myPath.moveTo(event.getX(), event.getY());
+            myPath.fWidth = mfPenWidth;
         } else if(event.getAction() == MotionEvent.ACTION_UP) {
         	myPath.lineTo(event.getX(), event.getY());
         	path.add(myPath);
+        	myPath.fWidth = mfPenWidth;
         }
         invalidate();
         return true;

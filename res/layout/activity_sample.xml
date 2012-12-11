@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="105dp"
-        android:text="Switch" />
+        android:text="Connect" />
 
     <TextView
         android:id="@+id/ColorView"
@@ -51,7 +51,7 @@
         android:layout_marginTop="30dp"
         android:text="Button1 :" />
     
-        <TextView
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:layout_marginTop="30dp"
         android:text="Button2 :" />
 
-        <TextView
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,68 +69,68 @@
         android:layout_marginTop="30dp"
         android:text="Battery :" />
  
-        <TextView
-            android:id="@+id/textStrokeWidth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView0"
-            android:layout_alignRight="@+id/ColorView"
-            android:text="-1" />
+    <SeekBar
+        android:id="@+id/textStrokeWidth"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView0"
+        android:layout_alignRight="@+id/ColorView"
+    />
         
-        <TextView
-            android:id="@+id/textPressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_alignRight="@+id/ColorView"
-            android:text="0" />
+      <TextView
+          android:id="@+id/textPressure"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/textView1"
+          android:layout_alignRight="@+id/ColorView"
+          android:text="0" />
 
-        <TextView
-            android:id="@+id/textButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignRight="@+id/ColorView"
-            android:text="1" />
+      <TextView
+          android:id="@+id/textButton1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/textView2"
+          android:layout_alignRight="@+id/ColorView"
+          android:text="1" />
 
-        <TextView
-            android:id="@+id/textButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignRight="@+id/ColorView"
-            android:text="2" />
-        
-        <TextView
-            android:id="@+id/textBattery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignRight="@+id/ColorView"
-            android:text="3" />
+      <TextView
+          android:id="@+id/textButton2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/textView3"
+          android:layout_alignRight="@+id/ColorView"
+          android:text="2" />
+      
+      <TextView
+          android:id="@+id/textBattery"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/textView4"
+          android:layout_alignRight="@+id/ColorView"
+          android:text="3" />
 
-        <Button
-            android:id="@+id/buttonClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_alignRight="@+id/ColorView"
-            android:layout_alignTop="@+id/textBattery"
-            android:layout_marginTop="50dp"
-            android:text="Clear" />
-		<View 
-		    android:layout_width="2dp"
-            android:layout_height="match_parent"
-		    android:background="@android:color/darker_gray"
-		    android:layout_marginLeft="300dp"
-		    />
-        
-        <LinearLayout
-            android:id="@+id/LayoutDraw"
-            android:layout_width="980dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="300dp">
-        </LinearLayout>
+      <Button
+          android:id="@+id/buttonClear"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignLeft="@+id/textView4"
+          android:layout_alignRight="@+id/ColorView"
+          android:layout_alignTop="@+id/textBattery"
+          android:layout_marginTop="50dp"
+          android:text="Clear" />
+	<View 
+		android:layout_width="2dp"
+		android:layout_height="match_parent"
+		android:background="@android:color/darker_gray"
+		android:layout_marginLeft="300dp"
+	/>
+      
+	<LinearLayout
+		android:id="@+id/LayoutDraw"
+		android:layout_width="980dp"
+		android:layout_height="match_parent"
+		android:layout_alignParentTop="true"
+		android:layout_marginLeft="300dp">
+	</LinearLayout>
         
 </RelativeLayout>
