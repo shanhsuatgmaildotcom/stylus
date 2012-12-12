@@ -52,7 +52,11 @@ public class DrawView extends View implements OnTouchListener {
 	
 	@Override
     public void onDraw(Canvas canvas) {
-		for (MyPath onePath : path) {
+		//for (MyPath onePath : path) {
+		int iCount = path.size();
+		if (iCount == 0)
+			return;
+		MyPath onePath = path.get(iCount - 1);
 			switch (onePath.color) 
 			{
 				case 0:
@@ -81,7 +85,7 @@ public class DrawView extends View implements OnTouchListener {
 					canvas.drawPath(onePath, paint);
 					break;
 			} 
-		}
+		
     }
 
 	@Override
