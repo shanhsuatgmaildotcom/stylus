@@ -1,8 +1,11 @@
 package com.example.adonitsppsample;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Bundle;
@@ -14,9 +17,13 @@ import android.view.SurfaceView;
 class DrawView extends SurfaceView implements SurfaceHolder.Callback 
 {
 	private DrawingThread _thread;	
-	private Path path;
-	private ArrayList _graphics = new ArrayList();
+	private MyPath mMyPath;
+	//private List _graphics = new ArrayList();
+	List<MyPath> _graphics = new ArrayList<MyPath>();
 	private Paint mPaint;
+	int miColor = 0;
+    float mfPenWidth = 3;
+    Canvas mCanvas = null;
 
 	public DrawView(Context context) 
 	{
@@ -31,22 +38,46 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback
 	    mPaint.setStrokeCap(Paint.Cap.ROUND);
 	    mPaint.setStrokeWidth(3);
 	}
+	
+	public void SetColor(int iColor)
+	{
+		miColor = iColor;
+	}
+	
+	public void SetStrokeWidth(float fWidth)
+	{
+		mfPenWidth = (float)fWidth;
+		//Log.d(TAG, "mfPenWidth:" + String.valueOf(mfPenWidth));
+	}
+	
+	public void clear()
+	{
+		synchronized (_thread.getSurfaceHolder()) {
+			_graphics.clear();
+			//this.invalidate();
+			this.onDraw(mCanvas);
+		}
+	}
 
 	@Override
 	public boolean onTouchEvent (MotionEvent event) 
 	{
 		synchronized (_thread.getSurfaceHolder()) {
 			if(event.getAction() == MotionEvent.ACTION_DOWN) {
-				path = new Path();
-				path.moveTo(event.getX(), event.getY());
+				mMyPath = new MyPath();
+				mMyPath.moveTo(event.getX(), event.getY());
+				mMyPath.fWidth = mfPenWidth;
 			} else if(event.getAction() == MotionEvent.ACTION_MOVE) {
-				path.lineTo(event.getX(), event.getY());
-				_graphics.add(path);
-				path = new Path();
-				path.moveTo(event.getX(), event.getY());
+				mMyPath.lineTo(event.getX(), event.getY());
+				mMyPath.color = miColor;
+				_graphics.add(mMyPath);
+				mMyPath = new MyPath();
+				mMyPath.fWidth = mfPenWidth;
+				mMyPath.moveTo(event.getX(), event.getY());
 			} else if(event.getAction() == MotionEvent.ACTION_UP) {
-				path.lineTo(event.getX(), event.getY());
-				_graphics.add(path);
+				mMyPath.lineTo(event.getX(), event.getY());
+				mMyPath.fWidth = mfPenWidth;
+				_graphics.add(mMyPath);
 			}
 			return true;
 		}
@@ -55,8 +86,36 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback
 	@Override
 	public void onDraw(Canvas canvas) 
 	{
-		for (Path path : _graphics) {
-			canvas.drawPath(path, mPaint);
+		mCanvas = canvas;
+		for (MyPath onePath : _graphics) {
+			switch (onePath.color) 
+			{
+			case 0:
+				mPaint.setColor(Color.BLACK);
+				mPaint.setStrokeWidth(onePath.fWidth);
+				canvas.drawPath(onePath, mPaint);
+				break;
+			case 1:
+				mPaint.setColor(Color.RED);
+				mPaint.setStrokeWidth(onePath.fWidth);
+				canvas.drawPath(onePath, mPaint);
+				break;
+			case 2:
+				mPaint.setColor(Color.GREEN);
+				mPaint.setStrokeWidth(onePath.fWidth);
+				canvas.drawPath(onePath, mPaint);
+				break;
+			case 3:
+				mPaint.setColor(Color.YELLOW);
+				mPaint.setStrokeWidth(onePath.fWidth);
+				canvas.drawPath(onePath, mPaint);
+				break;
+			case 4:
+				mPaint.setColor(Color.BLUE);
+				mPaint.setStrokeWidth(onePath.fWidth);
+				canvas.drawPath(onePath, mPaint);
+				break;
+			} 
 		}
 	}
 
@@ -89,8 +148,6 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback
 	 // TODO Auto-generated method stub
 	}
 }
-
-
 
 class DrawingThread extends Thread {
      private SurfaceHolder _surfaceHolder;
@@ -138,7 +195,7 @@ class DrawingThread extends Thread {
 
 class MyPath extends Path
 {
-    int color;
+    int color = 1;
     float fWidth;
 }
 
